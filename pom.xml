@@ -11,7 +11,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>PacketAPI</name>
+    <name>packet-api</name>
 
     <description>A packet api for minecraft.</description>
     <properties>
@@ -19,6 +19,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <url>www.davidout.com</url>
+
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Github minecraftPluginAPI package</name>
+            <url>https://maven.pkg.github.com/DavidOut03/PacketAPI</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
