@@ -1,5 +1,6 @@
 package com.davidout.api.nms;
 
+import com.davidout.api.exception.PacketSendException;
 import com.davidout.api.nms.reflection.ReflectionHelper;
 import org.bukkit.entity.Player;
 
@@ -25,12 +26,18 @@ public class PacketHelper {
         }
     }
 
-    public static boolean sendPacket(Player player, Object packet) throws InvocationTargetException, IllegalAccessException {
-        Object connection = getPlayerConnection(player);
-        if(connection == null) return false;
+    public static void sendPacket(Player player, Object packet) throws PacketSendException {
+        try {
+            Object connection = getPlayerConnection(player);
 
-        ReflectionHelper.getMethod(connection.getClass(), "sendPacket", NMSHelper.getMinecraftClass("Packet")).invoke(packet);
-        return true;
+            if(connection == null) {
+                throw new PacketSendException();
+            }
+
+            ReflectionHelper.getMethod(connection.getClass(), "sendPacket", NMSHelper.getMinecraftClass("Packet")).invoke( connection , packet);
+        } catch (Exception ex) {
+            throw new PacketSendException();
+        }
     }
 
 }

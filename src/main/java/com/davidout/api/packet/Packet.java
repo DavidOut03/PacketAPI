@@ -1,5 +1,6 @@
 package com.davidout.api.packet;
 
+import com.davidout.api.exception.PacketCreationException;
 import com.davidout.api.nms.NMSHelper;
 import com.davidout.api.nms.PacketHelper;
 import com.davidout.api.nms.reflection.ReflectionHelper;
@@ -13,22 +14,25 @@ import java.util.stream.Collectors;
 public abstract class Packet {
 
     public abstract String getMinecraftPacket();
-    public abstract Object constructPacket() throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    public abstract Object constructPacket() throws Exception;
 
 
-    public void sendToPlayer(Player player) throws InvocationTargetException, IllegalAccessException, InstantiationException {
-        Object connection = PacketHelper.getPlayerConnection(player);
-        if(connection == null) return;
-        ReflectionHelper.getMethod(connection.getClass(), "sendPacket", NMSHelper.getMinecraftClass("Packet")).invoke( connection , constructPacket());
+    public void sendToPlayer(Player player) throws Exception {
+        Object packet = constructPacket();
+        if(packet == null) {
+            throw new PacketCreationException(getMinecraftPacket());
+        }
+
+        PacketHelper.sendPacket(player, packet);
     }
 
-    public void sendToPlayers(Player... players) throws InvocationTargetException, IllegalAccessException, InstantiationException {
+    public void sendToPlayers(Player... players) throws Exception {
         for (Player player : players) {
             sendToPlayer(player);
         }
     }
 
-    public void sendToPlayers(List<Player> playerList) throws InvocationTargetException, IllegalAccessException, InstantiationException {
+    public void sendToPlayers(List<Player> playerList) throws Exception {
         for (Player player : playerList) {
             sendToPlayer(player);
         }

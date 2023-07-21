@@ -6,8 +6,13 @@ public class NMSHelper {
 
     public static Class<?> getMinecraftClass(String className) {
             try {
+                if(Version.serverVersionEqualsOrIsAbove("1.17")) {
+                    return Class.forName("net.minecraft." + className);
+                }
                 return Class.forName("net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]  + "." + className);
-            } catch (Exception ignored) {return null;}
+            } catch (Exception ignored) {
+                return null;
+            }
     }
 
     public static Class<?> getBukkitClass(String name) {
