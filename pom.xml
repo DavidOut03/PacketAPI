@@ -6,7 +6,7 @@
 
 
 
-    <groupId>mcapi.davidout.packet</groupId>
+    <groupId>mcapi.davidout</groupId>
     <artifactId>packet-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
