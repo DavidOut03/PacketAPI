@@ -6,7 +6,7 @@
 
 
 
-    <groupId>com.davidout.api.minecraft</groupId>
+    <groupId>com.davidout.api.minecraft.packet</groupId>
     <artifactId>packet-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -25,7 +25,7 @@
         <repository>
             <id>github</id>
             <name>Github minecraftPluginAPI package</name>
-            <url>https://maven.pkg.github.com/DavidOut03/PacketAPI</url>
+            <url>https://maven.pkg.github.com/DavidOut03/MinecraftPluginAPI</url>
         </repository>
     </distributionManagement>
 
